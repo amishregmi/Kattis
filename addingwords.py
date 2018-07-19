@@ -1,72 +1,38 @@
-from sys import stdin 
+import sys 
 
-wordtovalue = {}
+wordtoint= {}
+inttoword={}
 
-for line in stdin:
-	commands = line.split(' ')
-	commands[-1] = commands[-1].strip()
+for line in sys.stdin:
+	command=line.split()
 
-	#print(commands)
+	if command[0] == 'def':
+		if command[1] in wordtoint.keys():
+			del inttoword[int(wordtoint[command[1]])]
 
-	if len(commands)==1:
-		wordtovalue.clear()
+		wordtoint[command[1]]= command[2]
+		inttoword[int(command[2])]= command[1]
 
+	elif command[0] == 'calc':
+
+		compare = len(list(filter(lambda z:z in wordtoint.keys(), command[1:][::2])))
+		inputlen = len(command[1:][::2])
+
+		if compare!=inputlen:
+			print(" ".join(command[1:]), 'unknown')
+
+		else:
+
+			operation = map(lambda z: wordtoint[z] if z in wordtoint.keys() else z,command[1:-1])
+
+			str_operation = eval(" ".join(operation))
+
+			if str_operation in inttoword.keys():
+				print(" ".join(command[1:]), inttoword[str_operation])
+
+			else:
+				print(" ".join(command[1:]), 'unknown')
 
 	else:
-		if commands[0]=='def':
-			if commands[1] in wordtovalue:
-				del wordtovalue[commands[1]]
-				wordtovalue[commands[1]]=int(commands[2])
-			else:
-				wordtovalue[commands[1]]= int(commands[2])
-
-	#MAKE THIS WORK!!
-
-		elif commands[0]=='calc':
-			#		print(commands)
-			words =[]
-			s=" "
-
-			expressions = ['+','-']
-			strval =""
-			ukn = False
-
-			for i in commands[1:-1]:
-				if i in wordtovalue.keys():
-					continue
-				elif i in expressions:
-					continue
-				else:
-					stre  = s.join(commands)+' uknown'
-					print(stre)
-					ukn=True
-					break
-
-			if not ukn:
-
-				for i in commands[1:-1]:
-					if i not in expressions:
-						add = str(wordtovalue[i])
-						strval+=add
-					elif i in expressions:
-						strval+=i 
-				val = eval(strval)
-
-				if val not in wordtovalue.values():
-					print(s.join(commands), "unknown")
-					
-				else:
-					for a,b in wordtovalue.items():
-						if b == val:
-							print(s.join(commands), a)
-
-
-
-
-
-
-
-
-
-
-		
+		wordtoint={}
+		inttoword={}
