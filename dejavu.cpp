@@ -5,13 +5,12 @@ using namespace std;
 
 double distwithoutroot(int x1, int y1, int x2, int y2) {
 	//cout << "Got here for values " << x1 << y1 << x2 << y2 << endl;
-	int xdist = x2 - x1;
-	xdist = pow(xdist, 2);
-	int ydist = y2 - y1;
-	ydist = pow(ydist, 2);
-	int distance = xdist + ydist;
-	return distance;
-
+	int xdist = pow((x2 - x1),2);
+	
+	int ydist = pow((y2 - y1),2);
+	
+	return  xdist + ydist;
+	
 }
 
 int main() {
@@ -62,6 +61,29 @@ int main() {
 
 
 			}
+
+			else if (main_y_point == checkmatchy && main_x_point != checkmatchx) {
+
+				for (int k = 0; k < noofpoints; k++) {
+					int secondcheckx = xs[k];
+					int secondchecky = ys[k];
+
+					if (checkmatchx == secondcheckx && checkmatchy != secondchecky) {
+						int hypotenus = distwithoutroot(main_x_point, main_y_point, secondcheckx, secondchecky);
+						//hypotenus = pow(hypotenus,2);
+						int base = distwithoutroot(main_x_point, main_y_point, checkmatchx, checkmatchy);
+						//base = pow(base,2);
+						int perpendicular = distwithoutroot(secondcheckx, secondchecky, checkmatchx, checkmatchy);
+						//perpendicular = pow(perpendicular,2);
+						if (hypotenus == (perpendicular + base)) {
+							count += 1;
+							//cout << main_x_point << " " << main_y_point << "  " << checkmatchx << " " << checkmatchy << "  " << secondcheckx << " " << secondchecky << endl;
+							//xs[i] = 0;
+							//ys[i] = 0;
+						}
+					}
+				}
+			}
 			
 
 		}
@@ -70,7 +92,7 @@ int main() {
 
 	//cout << "count value after first check " << count << endl;
 	//cout << "Condition not satisfid " << conditionnotsatisfied << endl;
-
+/*
 	for (int i = 0; i < noofpoints; i++) {
 		int main_x_point = xs[i];
 		int main_y_point = ys[i];
@@ -104,7 +126,7 @@ int main() {
 		}
 
 	}
-
+	*/
 
 	cout << count/2;
 }
