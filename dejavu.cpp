@@ -4,7 +4,7 @@ using namespace std;
 
 
 double distwithoutroot(int x1, int y1, int x2, int y2) {
-	cout << "Got here for values " << x1 << y1 << x2 << y2 << endl;
+	//cout << "Got here for values " << x1 << y1 << x2 << y2 << endl;
 	int xdist = x2 - x1;
 	xdist = pow(xdist, 2);
 	int ydist = y2 - y1;
@@ -49,8 +49,10 @@ int main() {
 						//base = pow(base,2);
 						if (hypotenus== ( perpendicular+ base )) {
 							count += 1;
-							xs[i] = 0;
-							ys[i] = 0;
+							//cout << main_x_point << " " << main_y_point << "  " << checkmatchx << " " << checkmatchy << "  " << secondcheckx << " " << secondchecky << endl;
+
+							//xs[i] = 0;
+							//ys[i] = 0;
 						}
 						
 
@@ -60,9 +62,7 @@ int main() {
 
 
 			}
-			//else {
-				//conditionnotsatisfied += 1;
-			//}
+			
 
 		}
 
@@ -94,15 +94,17 @@ int main() {
 						//perpendicular = pow(perpendicular,2);
 						if (hypotenus == (perpendicular + base)) {
 							count += 1;
-							xs[i] = 0;
-							ys[i] = 0;
+							//cout << main_x_point << " " << main_y_point << "  " << checkmatchx << " " << checkmatchy << "  " << secondcheckx << " " << secondchecky << endl;
+							//xs[i] = 0;
+							//ys[i] = 0;
 						}
 					}
 				}
 			}
 		}
+
 	}
 
 
-	cout << count;
+	cout << count/2;
 }
